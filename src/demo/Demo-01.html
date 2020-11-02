@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="module">
+        import {html, render} from '../../node_modules/lit-html/lit-html.js';
+        import '../../node_modules/@palerock/ref/build/ref-mini.js';
+
+        const dataSource = {
+            name: 'Testing',
+            count: 1
+        };
+
+        function rerender() {
+            console.log(dataSource);
+            render(
+                html`
+                        <p>name: ${dataSource.name}</p>
+                        <p>count: ${dataSource.count}</p>
+                    `,
+                document.body);
+            debugger;
+        }
+
+        rerender();
+
+        const r = ref(
+            dataSource, {count: dataSource.count},
+            ({count}, target) => {
+                target.count = count;
+                rerender();
+            }
+        );
+
+        setInterval(() => {
+            r.count++;
+        }, 1000)
+
+    </script>
+    <style>
+        #box {
+            width: 900px;
+            height: 200px;
+            border: 1px solid red;
+            border-radius: 30% 30% 30% 30% / 30% 30% 30% 30%;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+
+</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="module">
+        import '../../build/ref-lit.js';
+
+        const {setup, initial} = window;
+
+        setup(document.getElementById('box'),
+            ({ref, html}) => {
+
+                ref.name = initial('Ryan');
+                ref.age = initial(20);
+                let renderedTimes = 1;
+
+                function onAgeClick() {
+                    ref.age++;
+                }
+
+                function onNameClick() {
+                    ref.name += 'click';
+                    ref.age += 2;
+                }
+
+                return () => html`
+                            <p @click=${onNameClick}>name: ${ref.name}</p>
+                            <p @click=${onAgeClick}>age: ${ref.age}</p>
+                            <p>year: ${renderedTimes++}</p>
+                        `
+            }
+        );
+
+    </script>
+    <style>
+        #box {
+            width: 900px;
+            height: 200px;
+            border: 1px solid red;
+            border-radius: 30% 30% 30% 30% / 30% 30% 30% 30%;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+
+</div>
+</body>
+</html>
