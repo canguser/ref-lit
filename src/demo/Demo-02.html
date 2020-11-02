@@ -6,13 +6,14 @@
     <script type="module">
         import '../../build/ref-lit.js';
 
-        const {setup, initial} = window;
+        const {setup, link} = window;
 
         setup(document.getElementById('box'),
             ({ref, html}) => {
 
-                ref.name = initial('Ryan');
-                ref.age = initial(20);
+                ref.name = 'ryan';
+                ref.age = 20;
+
                 let renderedTimes = 1;
 
                 function onAgeClick() {
@@ -24,23 +25,19 @@
                     ref.age += 2;
                 }
 
+                function onTimeClick() {
+                    renderedTimes += 10;
+                }
+
                 return () => html`
                             <p @click=${onNameClick}>name: ${ref.name}</p>
                             <p @click=${onAgeClick}>age: ${ref.age}</p>
-                            <p>year: ${renderedTimes++}</p>
+                            <p @click=${onTimeClick}>rendered times: ${renderedTimes++}</p>
                         `
             }
         );
 
     </script>
-    <style>
-        #box {
-            width: 900px;
-            height: 200px;
-            border: 1px solid red;
-            border-radius: 30% 30% 30% 30% / 30% 30% 30% 30%;
-        }
-    </style>
 </head>
 <body>
 <div id="box">
