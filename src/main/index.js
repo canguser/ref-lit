@@ -11,31 +11,73 @@ function renderIt(ele, htmlContent, {
     Utils.callFunctions(onRenderedActions);
 }
 
-export const setup = (ele, func) => {
+export const defineComponent = (name, props, factor) => {
+    customElements.define(
+        name, class extends HTMLElement {
+            static get observedAttributes() {
+                return Object.keys(props);
+            }
 
-    const beforeRenderedActions = [];
-    const onRenderedActions = [];
+            constructor() {
+                super();
+                const propertyRef = new Ref(props);
+                this._props = propertyRef.proxy;
 
-    const beforeRendered = (doing) => {
-        beforeRenderedActions.push(doing);
-    };
+                const root = this.attachShadow({mode: 'closed'});
 
-    const onRendered = (doing) => {
-        onRenderedActions.push(doing);
-    };
+                this.beforeRenderedActions = [];
+                this.onRenderedActions = [];
+                this.onUnmountedActions = [];
+                this.onMountedActions = [];
 
-    const ref = new Ref();
+                const {beforeRenderedActions, onRenderedActions, onUnmountedActions, onMountedActions} = this;
 
-    const htmlContentGetter = func({html, ref: ref.proxy, beforeRendered, onRendered});
+                const beforeRendered = (doing) => {
+                    beforeRenderedActions.push(doing);
+                };
 
-    renderIt(ele, htmlContentGetter(), {beforeRenderedActions, onRenderedActions});
+                const onRendered = (doing) => {
+                    onRenderedActions.push(doing);
+                };
 
-    ref.infectAll(
-        () => {
-            renderIt(ele, htmlContentGetter(), {beforeRenderedActions, onRenderedActions});
+                const onUnmounted = (doing) => {
+                    onUnmountedActions.push(doing);
+                };
+
+                const onMounted = (doing) => {
+                    onMountedActions.push(doing);
+                };
+
+                const ref = new Ref();
+
+                this.htmlContentGetter = factor({html, ref: ref.proxy, props: this._props, beforeRendered, onRendered, onUnmounted, onMounted});
+
+                const {htmlContentGetter} = this;
+                renderIt(root, htmlContentGetter(), {beforeRenderedActions, onRenderedActions});
+
+                const doRender = () => {
+                    renderIt(root, htmlContentGetter(), {beforeRenderedActions, onRenderedActions});
+                };
+
+                propertyRef.infect(Object.keys(props), doRender);
+
+                ref.infectAll(doRender)
+            }
+
+            connectedCallback() {
+                Utils.callFunctions(this.onMountedActions);
+            }
+
+            disconnectedCallback() {
+                Utils.callFunctions(this.onUnmountedActions);
+            }
+
+            attributeChangedCallback(name, oldValue, newValue) {
+                this._props[name] = newValue
+            }
         }
-    )
-
+    );
 };
 
 export * from '@palerock/ref';
+export * from 'lit-html';

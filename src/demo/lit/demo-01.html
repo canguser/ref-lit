@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="module">
+        import {html, render, directive} from 'https://unpkg.com/lit-html?module';
+        import {repeat} from "https://unpkg.com/lit-html/directives/repeat.js?module";
+
+        console.log(html, render);
+        console.log(repeat);
+
+        const helloDirective = directive(() => (part) => {
+            part.setValue('Hello');
+            setTimeout(() => {
+                part.setValue('Hello 1');
+                console.log(part.value);
+                part.commit();
+                console.log(part.value);
+            }, 3000);
+        });
+
+        const items = Array.from({length: 5}).map(i => ({
+            name: i
+        }));
+
+
+        const myTemplate = () => html`${helloDirective()}`;
+
+        render(myTemplate(), document.body);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -6,13 +6,41 @@
     <script type="module">
         import '../../build/ref-lit.js';
 
-        const {setup, link} = window;
+        const {defineComponent, link} = window;
 
-        setup(document.getElementById('box'),
-            ({ref, html}) => {
+        defineComponent('ref-child', {name: ''},
+            ({ref, props, html}) => {
+                ref.title = 'Child Component';
+                return () => html`
+                    <h3>${ref.title}</h3>
+                    <p>name: ${props.name}</p>
+                `
+            });
+
+        defineComponent('ref-parent', {},
+            ({ref, html, onMounted, onUnmounted, onRendered, beforeRendered}) => {
+
+                onMounted(() => {
+                    console.log('onMounted');
+                });
+
+                onUnmounted(() => {
+                    console.log('onUnmounted');
+                });
+
+                onRendered(() => {
+                    console.log('onRendered');
+                });
+
+                beforeRendered(() => {
+                    console.log('beforeRendered');
+                });
+
+                console.log('beforeCreated')
 
                 ref.name = 'ryan';
                 ref.age = 20;
+                ref.childName = 'Node';
 
                 let renderedTimes = 1;
 
@@ -23,16 +51,23 @@
                 function onNameClick() {
                     ref.name += 'click';
                     ref.age += 2;
+                    ref.childName += '1';
                 }
 
                 function onTimeClick() {
                     renderedTimes += 10;
                 }
 
+                console.log('created');
+
                 return () => html`
+                            <h1>Parent</h1>
                             <p @click=${onNameClick}>name: ${ref.name}</p>
                             <p @click=${onAgeClick}>age: ${ref.age}</p>
                             <p @click=${onTimeClick}>rendered times: ${renderedTimes++}</p>
+                            <div>
+                                <ref-child name=${ref.childName}></ref-child>
+                            </div>
                         `
             }
         );
@@ -41,7 +76,7 @@
 </head>
 <body>
 <div id="box">
-
+    <ref-parent></ref-parent>
 </div>
 </body>
 </html>

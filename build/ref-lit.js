@@ -16,14 +16,43 @@ return /******/ (() => { // webpackBootstrap
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "setup": () => /* binding */ setup
+/* harmony export */   "defineComponent": () => /* binding */ defineComponent,
+/* harmony export */   "AttributeCommitter": () => /* reexport safe */ lit_html__WEBPACK_IMPORTED_MODULE_0__.AttributeCommitter,
+/* harmony export */   "AttributePart": () => /* reexport safe */ lit_html__WEBPACK_IMPORTED_MODULE_0__.AttributePart,
+/* harmony export */   "BooleanAttributePart": () => /* reexport safe */ lit_html__WEBPACK_IMPORTED_MODULE_0__.BooleanAttributePart,
+/* harmony export */   "DefaultTemplateProcessor": () => /* reexport safe */ lit_html__WEBPACK_IMPORTED_MODULE_0__.DefaultTemplateProcessor,
+/* harmony export */   "EventPart": () => /* reexport safe */ lit_html__WEBPACK_IMPORTED_MODULE_0__.EventPart,
+/* harmony export */   "NodePart": () => /* reexport safe */ lit_html__WEBPACK_IMPORTED_MODULE_0__.NodePart,
+/* harmony export */   "PropertyCommitter": () => /* reexport safe */ lit_html__WEBPACK_IMPORTED_MODULE_0__.PropertyCommitter,
+/* harmony export */   "PropertyPart": () => /* reexport safe */ lit_html__WEBPACK_IMPORTED_MODULE_0__.PropertyPart,
+/* harmony export */   "SVGTemplateResult": () => /* reexport safe */ lit_html__WEBPACK_IMPORTED_MODULE_0__.SVGTemplateResult,
+/* harmony export */   "Template": () => /* reexport safe */ lit_html__WEBPACK_IMPORTED_MODULE_0__.Template,
+/* harmony export */   "TemplateInstance": () => /* reexport safe */ lit_html__WEBPACK_IMPORTED_MODULE_0__.TemplateInstance,
+/* harmony export */   "TemplateResult": () => /* reexport safe */ lit_html__WEBPACK_IMPORTED_MODULE_0__.TemplateResult,
+/* harmony export */   "createMarker": () => /* reexport safe */ lit_html__WEBPACK_IMPORTED_MODULE_0__.createMarker,
+/* harmony export */   "defaultTemplateProcessor": () => /* reexport safe */ lit_html__WEBPACK_IMPORTED_MODULE_0__.defaultTemplateProcessor,
+/* harmony export */   "directive": () => /* reexport safe */ lit_html__WEBPACK_IMPORTED_MODULE_0__.directive,
+/* harmony export */   "html": () => /* reexport safe */ lit_html__WEBPACK_IMPORTED_MODULE_0__.html,
+/* harmony export */   "isDirective": () => /* reexport safe */ lit_html__WEBPACK_IMPORTED_MODULE_0__.isDirective,
+/* harmony export */   "isIterable": () => /* reexport safe */ lit_html__WEBPACK_IMPORTED_MODULE_0__.isIterable,
+/* harmony export */   "isPrimitive": () => /* reexport safe */ lit_html__WEBPACK_IMPORTED_MODULE_0__.isPrimitive,
+/* harmony export */   "isTemplatePartActive": () => /* reexport safe */ lit_html__WEBPACK_IMPORTED_MODULE_0__.isTemplatePartActive,
+/* harmony export */   "noChange": () => /* reexport safe */ lit_html__WEBPACK_IMPORTED_MODULE_0__.noChange,
+/* harmony export */   "nothing": () => /* reexport safe */ lit_html__WEBPACK_IMPORTED_MODULE_0__.nothing,
+/* harmony export */   "parts": () => /* reexport safe */ lit_html__WEBPACK_IMPORTED_MODULE_0__.parts,
+/* harmony export */   "removeNodes": () => /* reexport safe */ lit_html__WEBPACK_IMPORTED_MODULE_0__.removeNodes,
+/* harmony export */   "render": () => /* reexport safe */ lit_html__WEBPACK_IMPORTED_MODULE_0__.render,
+/* harmony export */   "reparentNodes": () => /* reexport safe */ lit_html__WEBPACK_IMPORTED_MODULE_0__.reparentNodes,
+/* harmony export */   "svg": () => /* reexport safe */ lit_html__WEBPACK_IMPORTED_MODULE_0__.svg,
+/* harmony export */   "templateCaches": () => /* reexport safe */ lit_html__WEBPACK_IMPORTED_MODULE_0__.templateCaches,
+/* harmony export */   "templateFactory": () => /* reexport safe */ lit_html__WEBPACK_IMPORTED_MODULE_0__.templateFactory
 /* harmony export */ });
 /* harmony import */ var lit_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
 /* harmony import */ var _palerock_ref__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13);
 /* harmony import */ var _palerock_ref__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_palerock_ref__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _palerock_ref__WEBPACK_IMPORTED_MODULE_2__) if(["default","setup"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _palerock_ref__WEBPACK_IMPORTED_MODULE_2__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _palerock_ref__WEBPACK_IMPORTED_MODULE_2__) if(["default","defineComponent"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _palerock_ref__WEBPACK_IMPORTED_MODULE_2__[__WEBPACK_IMPORT_KEY__]
 /* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
 
 
@@ -33,40 +62,79 @@ function renderIt(ele, htmlContent, {
     beforeRenderedActions,
     onRenderedActions
 }) {
-    _utils__WEBPACK_IMPORTED_MODULE_1__.default.waitFrame()
-        .then(() => {
-            _utils__WEBPACK_IMPORTED_MODULE_1__.default.callFunctions(beforeRenderedActions);
-            (0,lit_html__WEBPACK_IMPORTED_MODULE_0__.render)(htmlContent, ele);
-            _utils__WEBPACK_IMPORTED_MODULE_1__.default.callFunctions(onRenderedActions);
-        });
+    _utils__WEBPACK_IMPORTED_MODULE_1__.default.callFunctions(beforeRenderedActions);
+    (0,lit_html__WEBPACK_IMPORTED_MODULE_0__.render)(htmlContent, ele);
+    _utils__WEBPACK_IMPORTED_MODULE_1__.default.callFunctions(onRenderedActions);
 }
 
-const setup = (ele, func) => {
+const defineComponent = (name, props, factor) => {
+    customElements.define(
+        name, class extends HTMLElement {
+            static get observedAttributes() {
+                return Object.keys(props);
+            }
 
-    const beforeRenderedActions = [];
-    const onRenderedActions = [];
+            constructor() {
+                super();
+                const propertyRef = new _palerock_ref__WEBPACK_IMPORTED_MODULE_2__.Ref(props);
+                this._props = propertyRef.proxy;
 
-    const beforeRendered = (doing) => {
-        beforeRenderedActions.push(doing);
-    };
+                const root = this.attachShadow({mode: 'closed'});
 
-    const onRendered = (doing) => {
-        onRenderedActions.push(doing);
-    };
+                this.beforeRenderedActions = [];
+                this.onRenderedActions = [];
+                this.onUnmountedActions = [];
+                this.onMountedActions = [];
 
-    const ref = new _palerock_ref__WEBPACK_IMPORTED_MODULE_2__.Ref();
+                const {beforeRenderedActions, onRenderedActions, onUnmountedActions, onMountedActions} = this;
 
-    const htmlContentGetter = func({html: lit_html__WEBPACK_IMPORTED_MODULE_0__.html, ref: ref.proxy, beforeRendered, onRendered});
+                const beforeRendered = (doing) => {
+                    beforeRenderedActions.push(doing);
+                };
 
-    renderIt(ele, htmlContentGetter(), {beforeRenderedActions, onRenderedActions});
+                const onRendered = (doing) => {
+                    onRenderedActions.push(doing);
+                };
 
-    ref.infectAll(
-        () => {
-            renderIt(ele, htmlContentGetter(), {beforeRenderedActions, onRenderedActions});
+                const onUnmounted = (doing) => {
+                    onUnmountedActions.push(doing);
+                };
+
+                const onMounted = (doing) => {
+                    onMountedActions.push(doing);
+                };
+
+                const ref = new _palerock_ref__WEBPACK_IMPORTED_MODULE_2__.Ref();
+
+                this.htmlContentGetter = factor({html: lit_html__WEBPACK_IMPORTED_MODULE_0__.html, ref: ref.proxy, props: this._props, beforeRendered, onRendered, onUnmounted, onMounted});
+
+                const {htmlContentGetter} = this;
+                renderIt(root, htmlContentGetter(), {beforeRenderedActions, onRenderedActions});
+
+                const doRender = () => {
+                    renderIt(root, htmlContentGetter(), {beforeRenderedActions, onRenderedActions});
+                };
+
+                propertyRef.infect(Object.keys(props), doRender);
+
+                ref.infectAll(doRender)
+            }
+
+            connectedCallback() {
+                _utils__WEBPACK_IMPORTED_MODULE_1__.default.callFunctions(this.onMountedActions);
+            }
+
+            disconnectedCallback() {
+                _utils__WEBPACK_IMPORTED_MODULE_1__.default.callFunctions(this.onUnmountedActions);
+            }
+
+            attributeChangedCallback(name, oldValue, newValue) {
+                this._props[name] = newValue
+            }
         }
-    )
-
+    );
 };
+
 
 
 
