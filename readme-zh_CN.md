@@ -1,6 +1,8 @@
 # Ref-Lit JS
 > 轻量级的 JavaScript 渐进式渲染框架
 
+> This is the Chinese Documentation，English Documentation please view: [English Documentation](./readme.md)
+
 ## 特征
 - 基于 [ref.js](https://github.com/canguser/ref) 和 [lit-html.js](https://github.com/Polymer/lit-html)
 - 使用了 [Web Component API](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
@@ -91,6 +93,3 @@
 ## API 文档
 > 目前，文档正在积极撰写中。
 你可以在源码的目录 [`./src/demo`](https://github.com/canguser/ref-lit/tree/master/src/demo) 获取到一些例子，通过它们可以很快学会如果使用.
-
-## 相关地址
-- English Documentation URL：[./readme.md](./readme.md)

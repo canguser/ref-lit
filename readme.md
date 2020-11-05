@@ -1,6 +1,8 @@
 # Ref-Lit JS
 > Lightweight progressive JavaScript rendering framework
 
+> 当前是英文文档，中文文档请点击这里切换：[中文文档地址](./readme-zh_CN.md)
+
 ## Features
 - Based on [ref.js](https://github.com/canguser/ref) & [lit-html.js](https://github.com/Polymer/lit-html)
 - Using [Web Component API](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
@@ -90,6 +92,3 @@ Or using following url to import or download：
 ## API Documentation
 > Now, the documentation is writing.
 You can take a quick look at the src [`./src/demo`](https://github.com/canguser/ref-lit/tree/master/src/demo) for demos, it's easy to reach it.
-
-## Related Path
-- 中文文档地址：[./readme-zh_CN.md](./readme-zh_CN.md)
