@@ -84,12 +84,16 @@
     </script>
     ```
 
-> 怎样获取 `ref-lit` 的资源文件?
+### 怎样获取 `ref-lit` 的资源文件?
+
 查看源码中 [`build`](https://github.com/canguser/ref-lit/tree/master/build) 目录, 你可以自行选择下载是否压缩过的资源文件.
+
 或者通过以下链接引入/下载：
-[https://unpkg.com/@palerock/ref-lit/build/ref-lit.mini.js](https://unpkg.com/@palerock/ref-lit/build/ref-lit.mini.js)
-[https://unpkg.com/@palerock/ref-lit/build/ref-lit.js](https://unpkg.com/@palerock/ref-lit/build/ref-lit.js)
+
+- [https://unpkg.com/@palerock/ref-lit/build/ref-lit.mini.js](https://unpkg.com/@palerock/ref-lit/build/ref-lit.mini.js)
+- [https://unpkg.com/@palerock/ref-lit/build/ref-lit.js](https://unpkg.com/@palerock/ref-lit/build/ref-lit.js)
 
 ## API 文档
 > 目前，文档正在积极撰写中。
+
 你可以在源码的目录 [`./src/demo`](https://github.com/canguser/ref-lit/tree/master/src/demo) 获取到一些例子，通过它们可以很快学会如果使用.

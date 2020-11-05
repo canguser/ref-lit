@@ -83,12 +83,16 @@
     </script>
     ```
 
-> How to get the ref-js sources?
+### How to get the ref-js sources?
+
 View the root dir named [`build`](https://github.com/canguser/ref-lit/tree/master/build), mini-js or normal chose by yourself.
+
 Or using following url to import or download：
-[https://unpkg.com/@palerock/ref-lit/build/ref-lit.mini.js](https://unpkg.com/@palerock/ref-lit/build/ref-lit.mini.js)
-[https://unpkg.com/@palerock/ref-lit/build/ref-lit.js](https://unpkg.com/@palerock/ref-lit/build/ref-lit.js)
+
+- [https://unpkg.com/@palerock/ref-lit/build/ref-lit.mini.js](https://unpkg.com/@palerock/ref-lit/build/ref-lit.mini.js)
+- [https://unpkg.com/@palerock/ref-lit/build/ref-lit.js](https://unpkg.com/@palerock/ref-lit/build/ref-lit.js)
 
 ## API Documentation
 > Now, the documentation is writing.
+
 You can take a quick look at the src [`./src/demo`](https://github.com/canguser/ref-lit/tree/master/src/demo) for demos, it's easy to reach it.
