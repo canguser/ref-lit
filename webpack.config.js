@@ -10,6 +10,9 @@ module.exports = env => {
             filename: env.production === 'true' ? 'ref-lit.mini.js' : 'ref-lit.js',
             //path:指定打包后的文件放在那里
             path: path.resolve(__dirname, "build"),
+            library: {
+                root: '$ref_lit',
+            },
             libraryTarget: "umd2",
             globalObject: "typeof self !== 'undefined' ? self : this"
         }

@@ -50,7 +50,10 @@ export const defineComponent = (name, props, factor) => {
 
                 const ref = new Ref();
 
-                this.htmlContentGetter = factor({html, ref: ref.proxy, props: this._props, beforeRendered, onRendered, onUnmounted, onMounted});
+                this.htmlContentGetter = factor({
+                    component: this, html, ref: ref.proxy, props: this._props, beforeRendered, onRendered, onUnmounted,
+                    onMounted
+                });
 
                 const {htmlContentGetter} = this;
                 renderIt(root, htmlContentGetter(), {beforeRenderedActions, onRenderedActions});
@@ -73,7 +76,12 @@ export const defineComponent = (name, props, factor) => {
             }
 
             attributeChangedCallback(name, oldValue, newValue) {
-                this._props[name] = newValue
+                if (newValue === undefined || newValue === 'undefined') {
+                    newValue = this._props[name];
+                }
+                if (oldValue !== newValue && !(oldValue == null && newValue == null)) {
+                    this._props[name] = newValue
+                }
             }
         }
     );

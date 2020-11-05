@@ -6,7 +6,7 @@
     <script type="module">
         import '../../build/ref-lit.js';
 
-        const {defineComponent, link} = window;
+        const {defineComponent, html} = window.$ref_lit;
 
         defineComponent('ref-child', {name: ''},
             ({ref, props, html}) => {
@@ -18,7 +18,7 @@
             });
 
         defineComponent('ref-parent', {},
-            ({ref, html, onMounted, onUnmounted, onRendered, beforeRendered}) => {
+            ({ref, onMounted, onUnmounted, onRendered, beforeRendered}) => {
 
                 onMounted(() => {
                     console.log('onMounted');

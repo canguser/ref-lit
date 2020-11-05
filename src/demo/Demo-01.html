@@ -4,52 +4,49 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script type="module">
-        import {html, render} from '../../node_modules/lit-html/lit-html.js';
-        import '../../node_modules/@palerock/ref/build/ref-mini.js';
+        import '../../build/ref-lit.js';
 
-        const dataSource = {
-            name: 'Testing',
-            count: 1
-        };
+        const {defineComponent, html} = window.$ref_lit;
 
-        function rerender() {
-            console.log(dataSource);
-            render(
-                html`
-                        <p>name: ${dataSource.name}</p>
-                        <p>count: ${dataSource.count}</p>
-                    `,
-                document.body);
-            debugger;
-        }
+        defineComponent('custom-input',
+            {
+                value: '',
+                type: 'text',
+                placeholder: 'please input...'
+            },
+            ({props, component}) => {
 
-        rerender();
+                function onInputChanged(e) {
+                    component.dispatchEvent(new CustomEvent('cvalue', {
+                        detail: {value: e.target.value}
+                    }));
+                }
 
-        const r = ref(
-            dataSource, {count: dataSource.count},
-            ({count}, target) => {
-                target.count = count;
-                rerender();
+                return () => html`
+                    <input value=${props.value} type=${props.type} placeholder=${props.placeholder} @keyup=${onInputChanged} >
+                `
             }
         );
 
-        setInterval(() => {
-            r.count++;
-        }, 1000)
+        defineComponent('my-component', {}, ({ref}) => {
+
+            function onValueChanged(e) {
+                ref.value = e.detail.value;
+            }
+
+            return () => html`
+                <div>
+                    <p>${ref.value}</p>
+                    <custom-input value=${ref.value} @cvalue=${onValueChanged}></custom-input>
+                </div>
+            `
+        });
 
     </script>
-    <style>
-        #box {
-            width: 900px;
-            height: 200px;
-            border: 1px solid red;
-            border-radius: 30% 30% 30% 30% / 30% 30% 30% 30%;
-        }
-    </style>
 </head>
 <body>
 <div id="box">
-
+    <my-component></my-component>
 </div>
 </body>
 </html>
